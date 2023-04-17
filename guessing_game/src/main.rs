@@ -39,10 +39,7 @@ fn main() {
             Ok(num) => num,
             Err(_) => continue,
         };
-        if (guess < 1) || (guess > 100) {
-            println!("Please input a number between 1 and 100");
-            continue;
-        }
+        let guess = Guess::new(guess).value();
         match guess.cmp(&secret_number) {
             Ordering::Less => println!("Too small!"),
             Ordering::Greater => println!("Too big!"),
