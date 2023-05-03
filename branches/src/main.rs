@@ -16,3 +16,13 @@ fn error_inducer(x: i32) {
     };
     println!("{word}");
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_error_inducer() {
+        error_inducer(0);
+    }
+}
