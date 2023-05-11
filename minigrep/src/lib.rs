@@ -7,13 +7,16 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn new(args: &[String]) -> Result<Self, &'static str> {
-        if args.len() < 3 {
-            let error = "Usage: minigrep <query> <filename>";
-            return Err(error);
-        }
-        let query = args[1].clone();
-        let filename = args[2].clone();
+    pub fn new(mut args: impl Iterator<Item = String>) -> Result<Self, &'static str> {
+        args.next(); // Skip 0 index which contains directory info
+        let query = match args.next() {
+            Some(arg) => arg,
+            None => return Err("Didn't get a query string."),
+        };
+        let filename = match args.next() {
+            Some(arg) => arg,
+            None => return Err("Didn't get a filename string"),
+        };
         let ignore_case = env::var("IGNORE_CASE").is_ok(); //doesn't matter what IGNORE_CASE is set to, just that it's set
         Ok(Self {
             query,
