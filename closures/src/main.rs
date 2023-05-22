@@ -54,6 +54,10 @@ fn main() {
     ];
     let mut rv = vec![];
     let rs = String::from("By key value");
+    for r in &rectangles {
+        // Just to get rid of unused height error
+        println!("their heights, {}", r.height);
+    }
     rectangles.sort_by_key(|r| {
         rv.push(&rs);
         r.width
